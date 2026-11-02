@@ -1,0 +1,49 @@
+# Lumiere Evergreen & Masteri West Heights — Vinhomes Smart City (thay cho VH_SM/LMG_MWH.py)
+name = "VHSC · Lumiere Evergreen & Masteri West Heights"
+mode = "apartment"
+benchmark = "Vinhomes Smart City"
+project_label = "Vinhomes Smart City"
+output = "vhsc_lumiere_masteri_west"
+zone_order = ["Lumiere Evergreen", "Masteri West Heights"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[[projects]]
+name = "Lumiere Evergreen"
+urls = ["/ban-can-ho-chung-cu-lumiere-evergreen"]
+
+[[projects]]
+name = "Masteri West Heights"
+urls = ["/ban-can-ho-chung-cu-masteri-west-heights"]
+
+# Lumiere Evergreen: The Aura (A32), The Halo, The Atmos
+[[towers]]
+pattern = '\b(?:aura|a32)\b'
+value = "The Aura"
+normalize = "none"
+[[towers]]
+pattern = '\bhalo\b'
+value = "The Halo"
+normalize = "none"
+[[towers]]
+pattern = '\batmos\b'
+value = "The Atmos"
+normalize = "none"
+# Masteri West Heights: West A–D ("west a", "WA", "tòa A masteri")
+[[towers]]
+pattern = '\b(?:west\s*|w)([a-d])\b'
+value = "West {1}"
+normalize = "title"
+[[towers]]
+pattern = '\bt[oòóô]a\s*([a-d])\s*masteri'
+value = "West {1}"
+normalize = "title"
+
+[[zones]]
+pattern = '^The (Aura|Halo|Atmos)$'
+value = "Lumiere Evergreen"
+[[zones]]
+pattern = '^West'
+value = "Masteri West Heights"

@@ -1,0 +1,41 @@
+# The Canopy Residences & The Sakura — Vinhomes Smart City (thay cho VH_SM/Ca_Sa.py)
+name = "VHSC · The Canopy Residences & The Sakura"
+mode = "apartment"
+benchmark = "Vinhomes Smart City"
+output = "vhsc_canopy_sakura"
+zone_order = ["The Canopy Residences", "The Sakura"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[filters]
+# URL "nha-dat-ban-..." trả cả shophouse (Sakura ~28%, Canopy ~4%) -> chỉ giữ căn hộ chung cư
+apartments_only = true
+
+[[projects]]
+name = "The Canopy Residences"
+urls = ["/nha-dat-ban-the-canopy-residences-vinhomes-smart-city"]
+
+[[projects]]
+name = "The Sakura"
+urls = ["/nha-dat-ban-the-sakura-vinhomes-smart-city"]
+
+# Canopy: TC1..TC9 ("TC-1", "TC1.2901", "The Canopy 3"); Sakura: SA1..SA9 ("SA-5", "S-A5", "Sa5.2204")
+[[towers]]
+pattern = '\bt[oòóô]a\s+(tc[.\-\s]?[1-9]|s[.\-\s]?a[.\-\s]?[1-9])\b'
+[[towers]]
+pattern = '\b(tc[.\-\s]?[1-9]|s[.\-\s]?a[.\-\s]?[1-9])\b'
+[[towers]]
+pattern = '\bcanopy\s*([1-9])\b'
+value = "TC{1}"
+[[towers]]
+pattern = '\bsakura\s*([1-9])\b'
+value = "SA{1}"
+
+[[zones]]
+pattern = '^TC'
+value = "The Canopy Residences"
+[[zones]]
+pattern = '^SA'
+value = "The Sakura"

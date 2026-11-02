@@ -1,0 +1,41 @@
+# Giá thuê căn hộ cao tầng Hải Phòng
+# (thay cho nha_thue_cao_tang_hoa_cai.py + "hoa cai hai phong.txt")
+name = "Hải Phòng · Thuê căn hộ cao tầng"
+mode = "detail"
+record = "apartment_rent"
+output = "hp_thue_can_ho"
+default_address = "Hải Phòng"
+
+[crawl]
+days_back = 30
+max_pages = 50
+stop_on_empty_page = false
+
+[[projects]]
+name = "Diamond Crown"
+urls = ["/cho-thue-can-ho-chung-cu-diamond-crown-hai-phong"]
+aliases = ["diamond crown"]
+
+[[projects]]
+name = "Sentosa Sky Park"
+urls = ["/cho-thue-can-ho-chung-cu-sentosa-sky-park-hai-phong"]
+aliases = ["sentosa sky park", "sentosa"]
+
+[[projects]]
+name = "Hoang Huy Grand Tower"
+urls = ["/nha-dat-cho-thue-hoang-huy-grand-tower-phuong-hong-bang-tp-hai-phong"]
+aliases = ["hoang huy grand tower"]
+
+[[projects]]
+name = "The Minato Residence"
+urls = ["/nha-dat-cho-thue-the-minato-residence-phuong-an-bien-tp-hai-phong"]
+aliases = ["minato residence", "minato"]
+
+[tower_options]
+exclude = ["M2", "M3", "PN1", "PN2", "PN3"]
+
+[[towers]]
+pattern = '\b(?:tòa|toà|toa|block|tháp|thap)\s+([a-z]{0,2}\d{1,2}[a-z]?)\b'
+[[towers]]
+pattern = '(?<![a-z0-9])([a-z]{1,2}\d{1,2})\b'
+fallback = true

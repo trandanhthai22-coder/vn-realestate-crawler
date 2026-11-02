@@ -1,0 +1,44 @@
+# The Beverly, The London, The Senique — Vinhomes Ocean Park 1 (thay cho vinhome_OP/Ber_Lon_Sen.py)
+name = "VHOP · Beverly / London / Senique"
+mode = "apartment"
+benchmark = "Vinhomes Ocean Park"
+project_label = "Vinhomes Ocean Park 1"
+output = "vhop_beverly_london_senique"
+zone_order = ["The Beverly", "The London", "The Senique"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[[projects]]
+name = "The Beverly"
+urls = ["/ban-can-ho-chung-cu-the-beverly-vinhomes-ocean-park"]
+
+[[projects]]
+name = "The London"
+urls = ["/ban-can-ho-chung-cu-the-london-vinhomes-ocean-park"]
+
+[[projects]]
+name = "The Senique"
+urls = ["/ban-can-ho-chung-cu-chung-cu-the-senique-hanoi"]
+
+[[towers]]
+pattern = '\bt[oòóô]a\s+(be\d|ld\d|sq\d)\b'
+[[towers]]
+pattern = '\bt[oòóô]a\s+(senique\s*(?:\d|premier))\b'
+normalize = "title"
+[[towers]]
+pattern = '\b(be\d|ld\d|sq\d)\b'
+[[towers]]
+pattern = '\b(senique\s*(?:\d|premier))\b'
+normalize = "title"
+
+[[zones]]
+pattern = '^BE'
+value = "The Beverly"
+[[zones]]
+pattern = '^LD'
+value = "The London"
+[[zones]]
+pattern = '^(SQ|Senique)'
+value = "The Senique"

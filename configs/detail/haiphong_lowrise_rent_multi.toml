@@ -1,0 +1,72 @@
+# Thuê shophouse / biệt thự / liền kề — 12 dự án Hải Phòng (thay cho DATA/fast_Scapling.py, DATA/fire_crawl.py)
+# Bản cũ dùng Firecrawl; giờ mặc định chạy curl_cffi. Muốn dùng Firecrawl: --backend firecrawl + FIRECRAWL_API_KEY.
+name = "Hải Phòng · Thuê thấp tầng đa dự án"
+mode = "detail"
+record = "lowrise_rent"
+output = "hp_thue_thap_tang_da_du_an"
+
+[crawl]
+days_back = 30
+max_pages = 20
+stop_on_empty_page = false
+
+[[projects]]
+name = "Vinhomes Royal Island"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-vinhomes-royal-island",
+        "/cho-thue-nha-biet-thu-lien-ke-vinhomes-royal-island-phuong-hoa-binh-tp-hai-phong"]
+aliases = ["vinhomes royal island", "royal island", "vu yen"]
+
+[[projects]]
+name = "Vinhomes Golden City"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-vinhomes-golden-city", "/cho-thue-nha-biet-thu-lien-ke-vinhomes-golden-city"]
+aliases = ["vinhomes golden city", "golden city", "duong kinh"]
+
+[[projects]]
+name = "Ramond Urbaniz"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-ramond-urbaniz-hai-phong", "/cho-thue-nha-biet-thu-lien-ke-ramond-urbaniz-hai-phong"]
+aliases = ["ramond urbaniz", "ramond", "kien thuy"]
+
+[[projects]]
+name = "Phú Thứ Park Hill"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-phu-thu-park-hill", "/cho-thue-nha-biet-thu-lien-ke-phu-thu-park-hill"]
+aliases = ["phu thu park hill", "phu thu"]
+
+[[projects]]
+name = "Vlasta Thủy Nguyên"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-vlasta-thuy-nguyen", "/cho-thue-nha-biet-thu-lien-ke-vlasta-thuy-nguyen"]
+aliases = ["vlasta"]
+
+[[projects]]
+name = "The Centric"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-the-centric", "/nha-dat-cho-thue-the-centric"]
+aliases = ["the centric", "centric"]
+
+[[projects]]
+name = "Hoàng Huy New City"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-hoang-huy-new-city", "/cho-thue-nha-biet-thu-lien-ke-hoang-huy-new-city"]
+aliases = ["hoang huy new city"]
+
+[[projects]]
+name = "Hoàng Huy Green River"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-hoang-huy-green-river", "/cho-thue-nha-biet-thu-lien-ke-hoang-huy-green-river"]
+aliases = ["hoang huy green river"]
+
+[[projects]]
+name = "Hồng Bàng Midtown"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-hong-bang-midtown", "/cho-thue-nha-biet-thu-lien-ke-hong-bang-midtown"]
+aliases = ["hong bang midtown"]
+
+[[projects]]
+name = "Star Central / HP Elite Central"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-star-central-hai-phong", "/cho-thue-nha-biet-thu-lien-ke-star-central-hai-phong"]
+aliases = ["star central", "hp elite", "elite central"]
+
+[[projects]]
+name = "Ruby Coastal City"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-ruby-coastal-city", "/cho-thue-nha-biet-thu-lien-ke-ruby-coastal-city"]
+aliases = ["ruby coastal"]
+
+[[projects]]
+name = "Hải An Center / Lumira Ville"
+urls = ["/cho-thue-shophouse-nha-pho-thuong-mai-lumira-ville", "/cho-thue-nha-biet-thu-lien-ke-lumira-ville"]
+aliases = ["hai an center", "lumira ville", "lumira"]

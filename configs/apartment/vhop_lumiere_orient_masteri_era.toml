@@ -1,0 +1,48 @@
+# Lumiere Orient Pearl (VHOP1) & Masteri Era Landmark (VHOP3) (thay cho vinhome_OP/LOP_MEL.py)
+#
+# LƯU Ý: URL "nha-dat-ban-..." lấy MỌI loại hình. Muốn chỉ căn hộ, đổi sang
+# "/ban-can-ho-chung-cu-lumiere-orient-pearl" và "/ban-can-ho-chung-cu-masteri-era-landmark".
+name = "VHOP · Lumiere Orient Pearl & Masteri Era Landmark"
+mode = "apartment"
+benchmark = "Vinhomes Ocean Park"
+output = "vhop_lop_mel"
+zone_order = ["Lumiere Orient Pearl", "Masteri Era Landmark", "The Spark", "The Vision", "The Flow"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+# LOP: 3 tòa BF1–BF3 + tòa dịch vụ Royal Sail; không chia phân khu nhỏ
+[[projects]]
+name = "Lumiere Orient Pearl"
+urls = ["/nha-dat-ban-lumiere-orient-pearl"]
+keywords = ["lumiere orient pearl", "orient pearl", "ocean park"]
+[[projects.towers]]
+pattern = '\bt[oòóô]a\s+(bf\s*[.\-_]?\s*[1-3])\b'
+[[projects.towers]]
+pattern = '\b(bf\s*[.\-_]?\s*[1-3])\b'
+[[projects.towers]]
+pattern = '\broyal\s*sail\b'
+value = "Royal Sail"
+normalize = "none"
+
+# MEL: 10 tòa, 3 phân khu nhỏ The Spark / The Vision / The Flow. Chưa có mã tòa chính thức ->
+# chỉ nhận chữ + số khi có chữ "tòa" đứng ngay trước (tránh bắt nhầm số tầng / số căn).
+[[projects]]
+name = "Masteri Era Landmark"
+urls = ["/nha-dat-ban-masteri-era-landmark"]
+keywords = ["masteri era landmark", "era landmark", "masteri era", "ocean park"]
+[[projects.towers]]
+pattern = '\bt[oòóô]a\s+(e?[svf]\s*[.\-_]?\s*\d{1,2})\b'
+[[projects.zones]]
+on = "text"
+pattern = '\bthe\s*spark\b'
+value = "The Spark"
+[[projects.zones]]
+on = "text"
+pattern = '\bthe\s*vision\b'
+value = "The Vision"
+[[projects.zones]]
+on = "text"
+pattern = '\bthe\s*flow\b'
+value = "The Flow"

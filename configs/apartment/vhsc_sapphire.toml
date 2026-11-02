@@ -1,0 +1,30 @@
+# The Sapphire S1–S4 — Vinhomes Smart City (thay cho VH_SM/Sapphire 1_4.py)
+name = "VHSC · The Sapphire S1–S4"
+mode = "apartment"
+benchmark = "Vinhomes Smart City"
+output = "vhsc_sapphire_1_4"
+zone_order = ["Sapphire 1 (S1xx)", "Sapphire 2 (S2xx)", "Sapphire 3 (S3xx)", "Sapphire 4 (S4xx)", "Không xác định"]
+
+[crawl]
+days_back = 30       # hoặc start_date = 2026-10-15 ; CLI --from ghi đè
+max_pages = 30
+
+[[projects]]
+name = "The Sapphire"
+zone = "Không xác định"
+urls = ["/ban-can-ho-chung-cu-the-sapphire-vinhomes-smart-city"]
+
+# Mã tòa S101…S499, chấp nhận "S1.01" / "S1-01" / "S1 01"; ưu tiên có chữ "tòa" đứng trước
+[[towers]]
+pattern = '\bt[oòóô]a\s+(s[1-4][.\-\s]?\d{2})\b'
+[[towers]]
+pattern = '\b(s[1-4][.\-\s]?\d{2})\b'
+# Chỉ ghi phân khu rút gọn "S1".."S4" — chỉ xét khi không tìm được mã đầy đủ ở cả tiêu đề lẫn mô tả
+[[towers]]
+pattern = '\bs([1-4])\b'
+value = "S{1}"
+fallback = true
+
+[[zones]]
+pattern = '^S([1-4])(\d{2})?$'
+value = "Sapphire {1} (S{1}xx)"

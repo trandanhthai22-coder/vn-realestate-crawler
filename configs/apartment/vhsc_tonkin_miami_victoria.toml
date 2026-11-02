@@ -1,0 +1,50 @@
+# The Tonkin, The Miami, The Victoria — Vinhomes Smart City (thay cho VH_SM/Tonkin_Miami_Vic.py)
+name = "VHSC · Tonkin / Miami / Victoria"
+mode = "apartment"
+benchmark = "VHSC"
+output = "vhsc_tonkin_miami_victoria"
+zone_order = ["The Tonkin", "The Miami", "The Victoria"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[filters]
+# Chỉ giữ tin thuộc khu vực VHSC (so khớp không dấu). Tin có link đúng path dự án vẫn được nhận.
+location_any = ['\btay\s+mo\b', '\bnam\s+tu\s+liem\b', '\bsmart\s*city\b', '\bha\s+noi\b']
+
+[[projects]]
+name = "The Tonkin"
+urls = ["/ban-can-ho-chung-cu-the-tonkin-vinhomes-smart-city"]
+[projects.tower_options]
+accent_insensitive = true
+exclude = ["PN1", "PN2", "PN3", "PN4", "PN5", "M2", "M3"]
+[[projects.towers]]
+pattern = '\b(?:tk|tonkin)\s*-?\s*(\d{1,2}[a-z]?)\b'
+value = "TK{1}"
+[[projects.towers]]
+pattern = '\b(?:toa|can ho|can|ch)\s*([a-z]{1,4}\s*-?\s*\d{1,2}[a-z]?)\b'
+
+[[projects]]
+name = "The Miami"
+urls = ["/ban-can-ho-chung-cu-the-miami"]
+[projects.tower_options]
+accent_insensitive = true
+exclude = ["PN1", "PN2", "PN3", "PN4", "PN5", "M2", "M3"]
+[[projects.towers]]
+pattern = '\b(?:mi|miami)\s*-?\s*(\d{1,2}[a-z]?)\b'
+value = "MI{1}"
+[[projects.towers]]
+pattern = '\b(?:toa|can ho|can|ch)\s*([a-z]{1,4}\s*-?\s*\d{1,2}[a-z]?)\b'
+
+[[projects]]
+name = "The Victoria"
+urls = ["/ban-can-ho-chung-cu-the-victoria-vinhomes-smart-city"]
+[projects.tower_options]
+accent_insensitive = true
+exclude = ["PN1", "PN2", "PN3", "PN4", "PN5", "M2", "M3"]
+[[projects.towers]]
+pattern = '\b(?:vc|victoria)\s*-?\s*(\d{1,2}[a-z]?)\b'
+value = "VC{1}"
+[[projects.towers]]
+pattern = '\b(?:toa|can ho|can|ch)\s*([a-z]{1,4}\s*-?\s*\d{1,2}[a-z]?)\b'

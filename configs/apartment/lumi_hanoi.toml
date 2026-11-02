@@ -1,0 +1,36 @@
+# Lumi Hanoi — Signature / Prestige / Elite (thay cho VH_SM/Lumi_hanoi.py)
+name = "Lumi Hanoi"
+mode = "apartment"
+benchmark = "Lumi Hanoi"
+output = "lumi_hanoi"
+zone_order = ["Lumi Signature", "Lumi Prestige", "Lumi Elite"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[[projects]]
+name = "Lumi Hanoi"
+zone = "Lumi Hanoi (Chưa rõ phân khu)"
+urls = ["/ban-can-ho-chung-cu-lumi-hanoi"]
+
+[[towers]]
+pattern = '\b(soleil\s*\d+|luna\s*\d+|stella\s*\d+)\b'
+normalize = "title"
+[[towers]]
+pattern = '\b(soleil|luna|stella)\b'
+normalize = "title"
+fallback = true
+
+[[zones]]
+on = "text"
+pattern = 'signature'
+value = "Lumi Signature"
+[[zones]]
+on = "text"
+pattern = 'prestige'
+value = "Lumi Prestige"
+[[zones]]
+on = "text"
+pattern = 'elite'
+value = "Lumi Elite"

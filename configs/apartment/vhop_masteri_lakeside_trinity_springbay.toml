@@ -1,0 +1,31 @@
+# Masteri Lakeside, Masteri Trinity Square, Lumiere SpringBay — VHOP1 (thay cho vinhome_OP/Mas_OP.py)
+name = "VHOP · Masteri Lakeside / Trinity Square / Lumiere SpringBay"
+mode = "apartment"
+benchmark = "Vinhomes Ocean Park"
+project_label = "Vinhomes Ocean Park 1"
+output = "vhop_masteri_lumiere"
+zone_order = ["Masteri Lakeside", "Masteri Trinity Square", "Lumiere SpringBay"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[[projects]]
+name = "Masteri Lakeside"
+urls = ["/ban-can-ho-chung-cu-masteri-lakeside"]
+
+[[projects]]
+name = "Masteri Trinity Square"
+urls = ["/ban-can-ho-chung-cu-masteri-trinity-square"]
+
+[[projects]]
+name = "Lumiere SpringBay"
+urls = ["/ban-can-ho-chung-cu-lumiere-springbay"]
+
+# Chuẩn hoá dấu ngăn cách về dấu chấm: "R1-02" -> "R1.02"
+[[towers]]
+pattern = '\bt[oòóô]a\s+(zr\d|pa\d|r\d[.\-\s]?\d{2}|p\d[.\-\s]?\d{2}|r\d|p\d)\b'
+normalize = "dot"
+[[towers]]
+pattern = '\b(zr\d|pa\d|r\d[.\-\s]?\d{2}|p\d[.\-\s]?\d{2}|r\d|p\d)\b'
+normalize = "dot"

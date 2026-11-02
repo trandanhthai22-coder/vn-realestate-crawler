@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+
+# Secrets & Cloudflare cookie cache — KHÔNG commit
+.env
+cf_cookies.json
+.cache/
+
+# Kết quả crawl & log
+output/
+_logs/
+*.xlsx
+*.csv
+*.jsonl
+!tests/fixtures/**
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

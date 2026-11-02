@@ -1,0 +1,33 @@
+# Imperia Smart City & Imperia Sola Park — Vinhomes Smart City (thay cho VH_SM/Imperia_Sola.py)
+name = "VHSC · Imperia Smart City & Sola Park"
+mode = "apartment"
+benchmark = "Vinhomes Smart City"
+project_label = "Vinhomes Smart City"     # giá trị cột "Dự án"; tên từng project -> cột "Phân khu"
+output = "vhsc_imperia_sola"
+zone_order = ["Imperia Smart City", "Imperia Sola Park"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[[projects]]
+name = "Imperia Smart City"
+urls = ["/ban-can-ho-chung-cu-imperia-smart-city"]
+
+[[projects]]
+name = "Imperia Sola Park"
+urls = ["/ban-can-ho-chung-cu-imperia-sola-park"]
+
+# Imperia: I1–I5, IS1–IS5 ; Sola Park: D1–D5
+[[towers]]
+pattern = '\b(is\d|i\d|d\d)\b'
+
+# zones.on = "text": so khớp trên tiêu đề + mô tả đã BỎ DẤU, viết thường
+[[zones]]
+on = "text"
+pattern = '\bsola\b'
+value = "Imperia Sola Park"
+[[zones]]
+on = "text"
+pattern = '\bimperia\b'
+value = "Imperia Smart City"

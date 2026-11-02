@@ -1,0 +1,23 @@
+# Thuê biệt thự / liền kề / shophouse Vinhomes Marina Cầu Rào 2 (thay cho LK/Thue_LK_HP.py)
+name = "Hải Phòng · Vinhomes Marina — thuê thấp tầng"
+mode = "detail"
+record = "lowrise_rent"
+output = "hp_marina_thue_thap_tang"
+
+[crawl]
+days_back = 60
+max_pages = 100
+stop_on_empty_page = false
+
+[[projects]]
+name = "Vinhomes Marina Hải Phòng"
+urls = [
+    "/cho-thue-nha-biet-thu-lien-ke-vinhomes-marina-cau-rao-2",
+    "/cho-thue-shophouse-nha-pho-thuong-mai-vinhomes-marina-cau-rao-2",
+]
+aliases = ["vinhomes marina", "marina cau rao", "vinh niem"]
+[projects.subdivisions]
+"Ngọc Trai" = []
+"Sao Biển" = []
+"San Hô" = []
+"Hải Âu" = []

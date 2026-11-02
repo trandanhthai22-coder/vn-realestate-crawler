@@ -1,0 +1,43 @@
+# The Sapphire 1 & 2 — Vinhomes Ocean Park (thay cho vinhome_OP/Sapphire1_2_OP.py)
+#   S1: S1.01–S1.12 (không có S1.04) ; S2: S2.01–S2.19
+name = "VHOP · The Sapphire 1 & 2"
+mode = "apartment"
+benchmark = "Vinhomes Ocean Park"
+output = "vhop_sapphire_1_2"
+zone_order = ["Sapphire 1", "Sapphire 2"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[[projects]]
+name = "The Sapphire 1 - Vinhomes Ocean Park"
+zone = "Sapphire 1"
+urls = ["/ban-can-ho-chung-cu-the-sapphire-1-vinhomes-ocean-park"]
+
+[[projects]]
+name = "The Sapphire 2 - Vinhomes Ocean Park"
+zone = "Sapphire 2"
+urls = ["/ban-can-ho-chung-cu-the-sapphire-2-vinhomes-ocean-park"]
+
+# Mã đầy đủ "S1.01", "s 2-15" -> "S1.01", "S2.15"
+[[towers]]
+pattern = '\b(s\s*([12])\s*[.\-_]\s*0?(\d{1,2}))\b'
+value = "S{2}.{3:0>2}"
+normalize = "upper"
+[[towers]]
+pattern = '\bt[oòóô]a\s+s\s*([12])\b'
+value = "S{1}"
+[[towers]]
+pattern = '(?<![a-z])s\s*([12])\b(?!\s*[.\-_]\d)'
+value = "S{1}"
+[[towers]]
+pattern = 'sapphire\s*([12])\b'
+value = "S{1}"
+
+[[zones]]
+pattern = '^S1'
+value = "Sapphire 1"
+[[zones]]
+pattern = '^S2'
+value = "Sapphire 2"

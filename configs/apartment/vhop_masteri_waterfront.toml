@@ -1,0 +1,48 @@
+# Masteri Waterfront — Vinhomes Ocean Park (thay cho vinhome_OP/MWF_OP.py)
+#   Hawaii (H): H1 The Nomad, H2 The Envy, H3 The Collection ; Miami (M): M1–M3
+name = "VHOP · Masteri Waterfront"
+mode = "apartment"
+benchmark = "Vinhomes Ocean Park"
+output = "vhop_masteri_waterfront"
+zone_order = ["Hawaii", "Miami"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[[projects]]
+name = "Masteri Waterfront"
+zone = "Không xác định"
+urls = ["/ban-can-ho-chung-cu-masteri-waterfront"]
+
+[[towers]]
+pattern = '\bt[oòóô]a\s+([hm]\s*[1-3])\b'
+[[towers]]
+pattern = '\b(?:the\s+)?nomad\b'
+value = "H1"
+[[towers]]
+pattern = '\b(?:the\s+)?envy\b'
+value = "H2"
+[[towers]]
+pattern = '\bthe\s+collection\b'
+value = "H3"
+[[towers]]
+# (?<![a-z0-9]) để "65m2" (diện tích) không bị đọc thành tòa M2
+pattern = '(?<![a-z0-9])([hm])\s*([1-3])\b(?!\s*[.\-_]\d)(?!\s*(?:m²|m2))'
+value = "{1}{2}"
+# Chỉ nêu tên phân khu, không rõ tòa
+[[towers]]
+pattern = '\bhawaii\b'
+value = "H"
+fallback = true
+[[towers]]
+pattern = '\bmiami\b'
+value = "M"
+fallback = true
+
+[[zones]]
+pattern = '^H'
+value = "Hawaii"
+[[zones]]
+pattern = '^M'
+value = "Miami"

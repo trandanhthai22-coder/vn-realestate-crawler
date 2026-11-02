@@ -1,0 +1,49 @@
+# Thuê shophouse / biệt thự Vinhomes Royal Island (Vũ Yên)
+# (thay cho shop_house_thuong_mai/Thue_SH_HP.py và Ban_SH_HP.py)
+name = "Hải Phòng · Vinhomes Royal Island — thuê thấp tầng"
+mode = "detail"
+record = "lowrise_rent"
+output = "hp_royal_island_thue_thap_tang"
+
+[crawl]
+days_back = 60
+max_pages = 100
+stop_on_empty_page = false
+
+[[projects]]
+name = "Vinhomes Royal Island"
+urls = [
+    "/cho-thue-shophouse-nha-pho-thuong-mai-vinhomes-royal-island",
+    "/cho-thue-nha-biet-thu-lien-ke-vinhomes-royal-island",
+]
+aliases = ["vinhomes royal island", "royal island", "vu yen"]
+[projects.subdivisions]
+"Hạnh Phúc" = []
+"Tài Lộc" = []
+"Tia Sáng" = []
+"Tương Lai" = []
+"The Miyabi" = ["miyabi"]
+"The Komorebi" = ["komorebi"]
+"Hoàng Thành" = []
+"Đảo Vua" = []
+"Kinh Đô" = []
+"Golf Land" = []
+"Royal Riverside" = []
+"Isla Bella" = []
+"The Tropic" = []
+"Nomura" = []
+"Miyamoto" = []
+"Quý Tộc" = []
+[projects.code_prefixes]
+"Hạnh Phúc" = ["HP"]
+"Tài Lộc" = ["TL"]
+"Tia Sáng" = ["TS"]
+"Tương Lai" = ["TT"]
+"The Miyabi" = ["MY"]
+"The Komorebi" = ["KB"]
+"Hoàng Thành" = ["HT"]
+"Đảo Vua" = ["DV"]
+"Kinh Đô" = ["KD"]
+"Golf Land" = ["GL"]
+"Royal Riverside" = ["RR"]
+"Isla Bella" = ["IB"]

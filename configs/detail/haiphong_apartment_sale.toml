@@ -1,0 +1,32 @@
+# Giá mua đứt căn hộ cao tầng Hải Phòng (thay cho "gia mua dut hoa cai.py")
+# include_expired = true -> quét thêm tin đã hết hạn (?expired=true) để có thêm mẫu giá.
+name = "Hải Phòng · Mua bán căn hộ cao tầng"
+mode = "detail"
+record = "apartment_sale"
+output = "hp_mua_ban_can_ho"
+default_address = "Hải Phòng"
+
+[crawl]
+days_back = 90
+max_pages = 50
+stop_on_empty_page = false
+include_expired = true
+
+[filters]
+exclude_lowrise = true    # bỏ tin shophouse / shop chân đế / liền kề / biệt thự
+
+[[projects]]
+name = "Gem Park"
+urls = ["/ban-can-ho-chung-cu-gem-park-hai-phong"]
+aliases = ["gem park"]
+
+[[projects]]
+name = "Diamond Crown"
+urls = ["/ban-can-ho-chung-cu-diamond-crown-hai-phong"]
+aliases = ["diamond crown"]
+
+[tower_options]
+exclude = ["M2", "M3", "PN1", "PN2", "PN3"]
+
+[[towers]]
+pattern = '\b(?:tòa|toà|toa|block|tháp|thap)\s+([a-z]{0,2}\d{1,2}[a-z]?)\b'

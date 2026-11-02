@@ -1,0 +1,28 @@
+# Bán biệt thự / liền kề / shophouse Vinhomes Imperia Hải Phòng
+# (thay cho LK/Mua_LK_HP.py, LK/TEST_MUA.py, mua_SH_hai_phong.py)
+name = "Hải Phòng · Vinhomes Imperia — bán thấp tầng"
+mode = "detail"
+record = "lowrise_sale"
+output = "hp_imperia_ban_thap_tang"
+
+[crawl]
+days_back = 60
+max_pages = 50
+stop_on_empty_page = false
+
+[[projects]]
+name = "Vinhomes Imperia Hải Phòng"
+urls = ["/ban-nha-biet-thu-lien-ke-vinhomes-imperia-hai-phong"]
+aliases = ["vinhomes imperia", "imperia hai phong", "imperia"]
+[projects.subdivisions]
+"The Manhattan" = ["manhattan"]
+"The Paris" = ["paris"]
+"The Venice" = ["venice"]
+"The Monaco" = ["monaco", "new monaco"]
+"Boutique House" = ["boutique"]
+[projects.code_prefixes]
+"The Manhattan" = ["MHT"]
+"The Paris" = ["PAR"]
+"The Venice" = ["VEN"]
+"The Monaco" = ["MON"]
+"Boutique House" = ["BTH"]

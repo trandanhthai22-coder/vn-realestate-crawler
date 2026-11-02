@@ -1,0 +1,29 @@
+# Mua bán nhà đất phía Nam Hà Nội theo từng huyện (thay cho "Khu vực phía Nam/thuong_tin_crawler.py")
+# Mỗi [[projects]] = 1 huyện. Muốn tách theo loại nhà đất, thay URL bằng các slug cụ thể, vd:
+#   /ban-nha-rieng-thuong-tin, /ban-nha-mat-pho-thuong-tin, /ban-dat-thuong-tin,
+#   /ban-nha-biet-thu-lien-ke-thuong-tin, /ban-shophouse-nha-pho-thuong-mai-thuong-tin ...
+name = "Hà Nội phía Nam · Mua bán nhà đất"
+mode = "detail"
+record = "lowrise_sale"
+output = "ha_noi_phia_nam_nha_dat"
+
+[crawl]
+days_back = 30
+max_pages = 30
+stop_on_empty_page = false
+
+[[projects]]
+name = "Thường Tín"
+urls = ["/nha-dat-ban-thuong-tin"]
+
+[[projects]]
+name = "Thanh Trì"
+urls = ["/nha-dat-ban-thanh-tri"]
+
+[[projects]]
+name = "Thanh Oai"
+urls = ["/nha-dat-ban-thanh-oai"]
+
+[[projects]]
+name = "Hoàng Mai"
+urls = ["/nha-dat-ban-hoang-mai"]

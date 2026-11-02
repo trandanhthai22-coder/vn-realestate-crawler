@@ -1,0 +1,51 @@
+"""Kiểm tra quy tắc mã tòa / phân khu của từng file cấu hình trên các câu mẫu thật."""
+
+from pathlib import Path
+
+import pytest
+
+from bdscrawler.config import discover, load_job
+
+CONFIGS = Path(__file__).resolve().parents[1] / "configs"
+
+
+def tower_zone(config: str, title: str, desc: str = "", project: int = 0):
+    job = load_job(CONFIGS / "apartment" / config)
+    p = job.projects[project]
+    tower = job.tower_rules(p).extract([title, desc])
+    return tower, job.zone_rules(p).identify(tower, f"{title} {desc}", p.zone or p.name)
+
+
+def test_all_configs_load():
+    paths = discover([CONFIGS])
+    assert len(paths) >= 20
+    for path in paths:
+        assert load_job(path).projects
+
+
+@pytest.mark.parametrize("config,title,desc,project,expected", [
+    ("vhsc_sapphire.toml", "Bán 2PN tòa S1.05 giá tốt", "", 0, ("S105", "Sapphire 1 (S1xx)")),
+    ("vhsc_sapphire.toml", "Bán căn S2 view hồ", "căn ở tòa S3-02", 0, ("S302", "Sapphire 3 (S3xx)")),
+    ("vhsc_sapphire.toml", "Bán căn S2 view hồ", "", 0, ("S2", "Sapphire 2 (S2xx)")),
+    ("vhsc_sapphire.toml", "Bán căn hộ đẹp", "", 0, ("", "Không xác định")),
+    ("vhsc_canopy_sakura.toml", "Bán căn The Canopy 3 giá rẻ", "", 0, ("TC3", "The Canopy Residences")),
+    ("vhsc_canopy_sakura.toml", "Sakura S-A5.2204 cần bán", "", 1, ("SA5", "The Sakura")),
+    ("vhsc_imperia_sola.toml", "Bán căn D3 Imperia Sola Park", "", 0, ("D3", "Imperia Sola Park")),
+    ("vhsc_lumiere_masteri_west.toml", "Bán căn west b Masteri", "", 1, ("West B", "Masteri West Heights")),
+    ("vhsc_lumiere_masteri_west.toml", "Lumiere Evergreen tòa Halo", "", 0, ("The Halo", "Lumiere Evergreen")),
+    ("lumi_hanoi.toml", "Bán căn Lumi Signature tòa Soleil 2", "", 0, ("Soleil 2", "Lumi Signature")),
+    ("vhsc_tonkin_miami_victoria.toml", "Bán căn Tonkin 2 giá tốt", "", 0, ("TK2", "The Tonkin")),
+    ("vhsc_tonkin_miami_victoria.toml", "Bán 2PN 65 m2 The Miami", "", 1, ("", "The Miami")),
+    ("vhop_beverly_london_senique.toml", "Bán căn tòa LD2 The London", "", 1, ("LD2", "The London")),
+    ("vhop_beverly_london_senique.toml", "Senique Premier view sông", "", 2, ("Senique Premier", "The Senique")),
+    ("vhop_masteri_waterfront.toml", "Căn 65m2 The Nomad", "", 0, ("H1", "Hawaii")),
+    ("vhop_masteri_waterfront.toml", "Bán căn M2 view biển hồ", "", 0, ("M2", "Miami")),
+    ("vhop_masteri_waterfront.toml", "Bán căn 65m2 đẹp", "", 0, ("", "Không xác định")),
+    ("vhop_sapphire_1_2.toml", "Bán căn s2-5 tầng cao", "", 1, ("S2.05", "Sapphire 2")),
+    ("vhop_sapphire_1_2.toml", "Bán căn đẹp", "", 0, ("", "Sapphire 1")),
+    ("vhop_masteri_lakeside_trinity_springbay.toml", "Bán căn tòa R1-02", "", 0, ("R1.02", "Masteri Lakeside")),
+    ("vhop_lumiere_orient_masteri_era.toml", "Bán 2PN BF 2 view đẹp", "", 0, ("BF2", "Lumiere Orient Pearl")),
+    ("vhop_lumiere_orient_masteri_era.toml", "Bán căn The Vision tòa ES1", "", 1, ("ES1", "The Vision")),
+])
+def test_tower_and_zone(config, title, desc, project, expected):
+    assert tower_zone(config, title, desc, project) == expected

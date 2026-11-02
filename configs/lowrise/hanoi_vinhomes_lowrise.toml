@@ -1,0 +1,232 @@
+# Giá bán thấp tầng (biệt thự / liền kề / shophouse) 6 KĐT Vinhomes Hà Nội
+# (thay cho Data_Crawler/crawl_thấp_tầng 1.py)
+#
+# Chỉ đọc card trang danh mục -> nhanh. Đơn giá NO đất & hạ tầng = (tổng giá - DTXD × đơn giá xây dựng) / DT đất,
+# chỉ tính khi tin nói rõ diện tích xây dựng / tổng sàn.
+name = "Hà Nội · Thấp tầng Vinhomes"
+mode = "lowrise"
+output = "thap_tang_vinhomes"
+
+[crawl]
+days_back = 7
+max_pages = 10
+delay = 1.5
+fetch_detail = false
+stop_on_empty_page = false
+
+[lowrise]
+construction_rate = 8.0     # triệu đồng / m² sàn xây dựng
+
+# Quy tắc phân loại [[projects.type_rules]]: xét theo thứ tự, khớp đầu tiên thắng.
+#   zones = [...]            áp dụng cho các phân khu này (bỏ trống = mọi phân khu)
+#   area_lt / area_lte / area_gt / area_gte   điều kiện diện tích đất (m²)
+#   keep_types = [...]       nếu loại hình đọc được thuộc danh sách này thì giữ nguyên
+
+# ──────────────────────────────────────────────────────────────────────────────
+[[projects]]
+name = "Vinhomes Ocean Park 1"
+urls = ["/ban-nha-biet-thu-lien-ke-vinhomes-ocean-park-gia-lam"]
+province = "Hà Nội"
+district = "Gia Lâm"
+aliases = ["vinhomes ocean park 1", "ocean park 1", "oceanpark 1", "vhop1", "vin 1 gia lam", "vinhomes ocean park gia lam"]
+[projects.subdivisions]
+"Hải Âu" = []
+"Ngọc Trai" = ["đảo ngọc trai"]
+"San Hô" = []
+"Sao Biển" = []
+[projects.code_prefixes]
+"Hải Âu" = ["HA"]
+"Ngọc Trai" = ["NT"]
+"San Hô" = ["SH"]
+"Sao Biển" = ["SB"]
+[[projects.type_rules]]
+zones = ["Sao Biển"]
+area_lt = 70
+type = "Liền kề"
+[[projects.type_rules]]
+zones = ["Sao Biển"]
+area_gte = 70
+type = "Biệt thự"
+[[projects.type_rules]]
+zones = ["Ngọc Trai", "San Hô"]
+area_gt = 100
+type = "Biệt thự"
+[[projects.type_rules]]
+zones = ["Hải Âu"]
+area_lt = 100
+type = "Liền kề"
+[[projects.type_rules]]
+zones = ["Hải Âu"]
+area_gt = 150
+type = "Biệt thự"
+
+# ──────────────────────────────────────────────────────────────────────────────
+[[projects]]
+name = "Vinhomes Ocean Park 2"
+urls = ["/ban-nha-biet-thu-lien-ke-vinhomes-ocean-park-2"]
+province = "Hưng Yên"
+district = "Văn Giang"
+aliases = ["vinhomes ocean park 2", "ocean park 2", "oceanpark 2", "vhop2", "the empire", "vin 2"]
+[projects.subdivisions]
+"Chà Là" = []
+"Cọ Xanh" = []
+"Đảo Dừa" = []
+"Hải Âu" = []
+"Kinh Đô" = ["kinh đô ánh sáng"]
+"Ngọc Trai" = []
+"San Hô" = []
+"Sao Biển" = []
+[projects.code_prefixes]
+"Chà Là" = ["CL"]
+"Cọ Xanh" = ["CX"]
+"Đảo Dừa" = ["DD"]
+"Hải Âu" = ["HA"]
+"Kinh Đô" = ["KD"]
+"Ngọc Trai" = ["NT"]
+"San Hô" = ["SH"]
+"Sao Biển" = ["SB"]
+[[projects.type_rules]]
+zones = ["Đảo Dừa"]
+area_lt = 100
+type = "Liền kề"
+[[projects.type_rules]]
+zones = ["Đảo Dừa"]
+area_gte = 100
+type = "Biệt thự"
+[[projects.type_rules]]
+zones = ["Chà Là", "Cọ Xanh", "San Hô", "Sao Biển"]
+area_lt = 100
+type = "Liền kề"
+[[projects.type_rules]]
+zones = ["Ngọc Trai"]
+type = "Biệt thự"
+
+# ──────────────────────────────────────────────────────────────────────────────
+[[projects]]
+name = "Vinhomes Ocean Park 3"
+urls = ["/ban-nha-biet-thu-lien-ke-vinhomes-ocean-park-3"]
+province = "Hưng Yên"
+district = "Văn Giang"
+aliases = ["vinhomes ocean park 3", "ocean park 3", "oceanpark 3", "vhop3", "the crown", "vin 3"]
+exclude_zones = ["Fullton"]
+[projects.subdivisions]
+"Ánh Dương" = []
+"Đảo Ngọc" = []
+"Phố Biển" = []
+"Thời Đại" = []
+"Vịnh Tây" = []
+"Vịnh Thiên Đường" = []
+"Vịnh Xanh" = []
+"Bình Minh" = []
+"Hừng Đông" = []
+"Cát Tường" = []
+"Thịnh Vượng" = []
+"Fullton" = ["the fullton"]
+[projects.code_prefixes]
+"Ánh Dương" = ["AD"]
+"Đảo Ngọc" = ["DN"]
+"Phố Biển" = ["PB"]
+"Thời Đại" = ["TD"]
+"Vịnh Tây" = ["VT"]
+"Vịnh Thiên Đường" = ["VTD"]
+"Vịnh Xanh" = ["VX"]
+"Bình Minh" = ["BM"]
+"Hừng Đông" = ["HD"]
+"Cát Tường" = ["CT"]
+"Thịnh Vượng" = ["TV"]
+
+# ──────────────────────────────────────────────────────────────────────────────
+[[projects]]
+name = "Vinhomes Global Gate"
+urls = ["/ban-nha-biet-thu-lien-ke-vinhomes-global-gate"]
+province = "Hà Nội"
+district = "Đông Anh"
+aliases = ["vinhomes global gate", "global gate co loa", "vinhomes co loa", "vin co loa"]
+exclude_zones = ["Nhật Nguyệt", "Viễn Đông"]
+[projects.zone_renames]
+"Ánh Dương" = "Cát Tường"
+[projects.subdivisions]
+"Cát Tường" = []
+"Tinh Hoa" = []
+"Thịnh Vượng" = []
+"Ánh Dương" = []
+"Nhật Nguyệt" = []
+"Bình Minh" = []
+"Viễn Đông" = []
+[projects.code_prefixes]
+"Cát Tường" = ["CT"]
+"Tinh Hoa" = ["TH", "TN", "TQ", "TP"]
+"Thịnh Vượng" = ["TV"]
+"Ánh Dương" = ["AD"]
+"Nhật Nguyệt" = ["NN"]
+"Bình Minh" = ["BM"]
+"Viễn Đông" = ["VD"]
+[[projects.type_rules]]
+zones = ["Cát Tường", "Nhật Nguyệt"]
+type = "Liền kề"
+[[projects.type_rules]]
+zones = ["Tinh Hoa", "Thịnh Vượng"]
+area_lt = 100
+type = "Liền kề"
+[[projects.type_rules]]
+zones = ["Tinh Hoa", "Thịnh Vượng"]
+area_gte = 100
+type = "Biệt thự"
+
+# ──────────────────────────────────────────────────────────────────────────────
+[[projects]]
+name = "Vinhomes Wonder City"
+urls = ["/ban-nha-biet-thu-lien-ke-vinhomes-wonder-city-5899"]
+province = "Hà Nội"
+district = "Đan Phượng"
+aliases = ["vinhomes wonder city", "wonder city", "vinhomes dan phuong", "wonder park"]
+[projects.zone_renames]
+"Ban Mai" = "Hừng Đông"
+[projects.subdivisions]
+"Hừng Đông" = []
+"Bình Minh" = []
+"Ban Mai" = []
+[projects.code_prefixes]
+"Hừng Đông" = ["HD"]
+"Bình Minh" = ["BM"]
+"Ban Mai" = ["BA"]
+[[projects.type_rules]]
+zones = ["Hừng Đông", "Bình Minh"]
+area_gt = 150
+type = "Biệt thự"
+[[projects.type_rules]]
+zones = ["Hừng Đông", "Bình Minh"]
+type = "Liền kề"
+keep_types = ["Liền kề", "Shophouse"]
+
+# ──────────────────────────────────────────────────────────────────────────────
+[[projects]]
+name = "Vinhomes Riverside"
+urls = ["/ban-nha-biet-thu-lien-ke-vinhomes-riverside"]
+province = "Hà Nội"
+district = "Long Biên"
+aliases = ["vinhomes riverside", "vinhome riverside"]
+exclude_zones = ["Phong Lan", "Tulip"]
+[projects.subdivisions]
+"Anh Đào" = []
+"Bằng Lăng" = []
+"Hoa Lan" = []
+"Hoa Phượng" = []
+"Hoa Sữa" = []
+"Hướng Dương" = []
+"Nguyệt Quế" = []
+"Phong Lan" = []
+"Tulip" = []
+[projects.code_prefixes]
+"Anh Đào" = ["AD"]
+"Bằng Lăng" = ["BL"]
+"Hoa Lan" = ["HL"]
+"Hoa Phượng" = ["HP"]
+"Hoa Sữa" = ["HS"]
+"Hướng Dương" = ["HD"]
+"Nguyệt Quế" = ["NQ"]
+"Phong Lan" = ["PL"]
+"Tulip" = ["TU", "TL"]
+[[projects.type_rules]]
+zones = ["Hoa Sữa", "Hoa Lan", "Hoa Phượng", "Anh Đào", "Bằng Lăng", "Hướng Dương", "Nguyệt Quế"]
+type = "Biệt thự"

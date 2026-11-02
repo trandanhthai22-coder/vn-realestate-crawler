@@ -1,0 +1,34 @@
+# The Zenpark, The Zurich, The Pavilion, The Paris — VHOP1 (thay cho vinhome_OP/zen_zu_pavi_paris.py)
+name = "VHOP · Zenpark / Zurich / Pavilion / Paris"
+mode = "apartment"
+benchmark = "Vinhomes Ocean Park"
+project_label = "Vinhomes Ocean Park 1"
+output = "vhop_zenpark_zurich_pavilion_paris"
+zone_order = ["The Zenpark", "The Zurich", "The Pavilion", "The Paris"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[[projects]]
+name = "The Zenpark"
+urls = ["/ban-can-ho-chung-cu-the-zenpark"]
+
+[[projects]]
+name = "The Zurich"
+urls = ["/ban-can-ho-chung-cu-the-zurich-vinhomes-ocean-park"]
+
+[[projects]]
+name = "The Pavilion"
+urls = ["/ban-can-ho-chung-cu-the-pavilion-vinhomes-ocean-park"]
+
+[[projects]]
+name = "The Paris"
+urls = ["/ban-can-ho-chung-cu-the-paris-vinhomes-ocean-park"]
+
+[[towers]]
+pattern = '\bt[oòóô]a\s+(zr\d|pa\d|r\d[.\-\s]?\d{2}|p\d[.\-\s]?\d{2}|r\d|p\d)\b'
+normalize = "dot"
+[[towers]]
+pattern = '\b(zr\d|pa\d|r\d[.\-\s]?\d{2}|p\d[.\-\s]?\d{2}|r\d|p\d)\b'
+normalize = "dot"

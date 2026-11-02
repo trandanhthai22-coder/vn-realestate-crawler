@@ -5,6 +5,9 @@ REM  Nhap dup file nay sau khi git clone.
 REM ============================================================
 setlocal
 cd /d "%~dp0"
+chcp 65001 >nul
+set PYTHONIOENCODING=utf-8
+set PYTHONUTF8=1
 
 set "PY="
 for %%V in (3.13 3.12 3.11 3) do (

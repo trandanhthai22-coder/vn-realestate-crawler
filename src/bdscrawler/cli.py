@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import logging
+import os
 import subprocess
 import sys
 import time
@@ -28,12 +29,21 @@ from bdscrawler.dates import parse_cli_date
 log = logging.getLogger("bdscrawler")
 
 
-def _setup_logging(verbose: bool, log_file: Path | None = None) -> None:
-    for stream in (sys.stdout, sys.stderr):  # console Windows mặc định cp1252 không in được tiếng Việt
+def force_utf8_console() -> None:
+    """Console Windows / output bị chuyển hướng mặc định cp1252 -> in tiếng Việt văng lỗi 'charmap'.
+
+    Phải gọi TRƯỚC mọi lệnh print, kể cả trước argparse (vì --help / thông báo lỗi tham số có tiếng Việt).
+    """
+    os.environ.setdefault("PYTHONIOENCODING", "utf-8")  # tiến trình con kế thừa
+    os.environ.setdefault("PYTHONUTF8", "1")
+    for stream in (sys.stdout, sys.stderr, sys.stdin):
         try:
             stream.reconfigure(encoding="utf-8", errors="replace")
         except Exception:
             pass
+
+
+def _setup_logging(verbose: bool, log_file: Path | None = None) -> None:
     handlers: list[logging.Handler] = [logging.StreamHandler()]
     if log_file:
         log_file.parent.mkdir(parents=True, exist_ok=True)
@@ -303,6 +313,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    force_utf8_console()
     args = build_parser().parse_args(argv)
     _setup_logging(args.verbose)
     return args.func(args)

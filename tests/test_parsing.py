@@ -68,6 +68,20 @@ def test_menu_rejects_reversed_range(monkeypatch, capsys):
     assert "Ngày không hợp lệ" in out and "sau ngày kết thúc" in out
 
 
+def test_cli_prints_vietnamese_on_legacy_console():
+    """Tái hiện lỗi 'charmap' codec can't encode: console cp1252, gọi --help có tiếng Việt."""
+    import os
+    import subprocess
+    import sys
+
+    env = {**os.environ, "PYTHONIOENCODING": "cp1252", "PYTHONUTF8": "0"}
+    for args in (["--help"], ["run", "--help"], ["list", "configs"]):
+        proc = subprocess.run([sys.executable, "-m", "bdscrawler", *args], capture_output=True, env=env,
+                              cwd=os.path.dirname(os.path.dirname(__file__)))
+        assert proc.returncode == 0, proc.stderr.decode("utf-8", "replace")
+        assert b"charmap" not in proc.stderr
+
+
 def test_text_helpers():
     assert label_key("Ngày\n           đăng:") == "ngay dang"
     assert contains_any("ban-can-ho-diamond-crown-hai-phong-pr123", ["Diamond Crown"])

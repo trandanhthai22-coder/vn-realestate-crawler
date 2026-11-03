@@ -10,7 +10,7 @@
 configs/*.toml ──► bdscrawl run ──► fetch (curl_cffi + Cloudflare) ──► parse ──► rules (tòa / phân khu) ──► Excel / CSV
 ```
 
-## 🚀 Bắt đầu nhanh (Windows — không cần biết code)
+## 🚀 Bắt đầu nhanh (Windows)
 
 Cần có sẵn: **Git**, **Python 3.11+** ([tải tại đây](https://www.python.org/downloads/), nhớ tick *Add python.exe to PATH*) và **Chrome hoặc Edge**.
 

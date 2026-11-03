@@ -60,7 +60,7 @@ class DetailPipeline(Pipeline):
         rows = []
         for card in cards:
             link = card.link.rstrip("/")
-            if not link or link in self._seen or not bds.is_listing_url(link):
+            if not link or link in self._seen or not self.site.is_listing_url(link):
                 continue
             if not self._alias_ok(card.text, project):
                 continue
@@ -71,7 +71,7 @@ class DetailPipeline(Pipeline):
             if not html:
                 continue
             try:
-                row = self.build(bds.parse_detail(html, link), card, project)
+                row = self.build(self.site.parse_detail(html, link), card, project)
             except Exception as exc:
                 log.debug("Bỏ qua tin lỗi %s: %s", link, exc)
                 continue

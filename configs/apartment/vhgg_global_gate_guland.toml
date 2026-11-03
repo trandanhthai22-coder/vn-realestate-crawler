@@ -1,0 +1,62 @@
+# Vinhomes Global Gate (Cổ Loa) — 4 dự án cao tầng, nguồn guland.vn
+# (thay cho phần GulandScraper trong Data_Crawler.py)
+# Lưu ý: guland chỉ hiện ngày CẬP NHẬT dạng tương đối ("2 tuần trước") -> cột "Ngày đăng" là ngày ước tính;
+# không có "Ngày hết hạn" / "Loại tin".
+# Slug Imperia trên guland là "du-an-imperia-co-loa" (KHÔNG có chữ "signature" — slug kia trả trang rỗng).
+name = "VHGG · Global Gate (guland)"
+mode = "apartment"
+site = "https://guland.vn"
+benchmark = "Vinhomes Global Gate"
+output = "vhgg_global_gate_guland"
+zone_order = ["Masteri Grand Avenue", "Lumiere Essence Peak", "Lumiere Prime Hills",
+              "The Continental", "The Cosmopolitan", "Imperia Signature"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+delay = 1.5
+
+[tower_options]
+accent_insensitive = true
+[[towers]]
+pattern = '\b(?:toa|thap|block|building|tower)\s*[:\-]?\s*([a-z]{1,2}\s?\d{1,2})\b'
+[[towers]]
+pattern = '\b([a-z]{1,2}\d?)\s*[-.]\s*\d{1,3}\s*[-.]\s*\d{1,3}\b'
+fallback = true
+
+[[projects]]
+name = "Masteri Grand Avenue"
+urls = ["/du-an-masteri-grand-avenue/mua-ban-can-ho-chung-cu"]
+
+[[projects]]
+name = "Lumiere Essence Peak"
+urls = ["/du-an-lumiere-essence-peak/mua-ban-can-ho-chung-cu"]
+
+[[projects]]
+name = "Lumiere Prime Hills"
+urls = ["/du-an-lumiere-prime-hills/mua-ban-can-ho-chung-cu"]
+
+[[projects]]
+name = "Imperia Signature"
+urls = ["/du-an-imperia-co-loa/mua-ban-can-ho-chung-cu"]
+[projects.tower_options]
+accent_insensitive = true
+on_multiple = "blank"     # tin nêu nhiều tòa ("dự án gồm Y4, Y5, M1...") -> để trống, không đoán
+[[projects.towers]]
+pattern = '\b(?:toa|thap|block|building|tower)\s*[:\-]?\s*(y[45]|m[1-3])(?![a-z0-9])'
+[[projects.towers]]
+pattern = '(?<![a-z0-9./,])(?<!\d\s)(y[45]|m[1-3])(?![a-z0-9])(?!\s*/)'
+[[projects.zones]]
+pattern = '^Y'
+value = "The Continental"
+[[projects.zones]]
+pattern = '^M'
+value = "The Cosmopolitan"
+[[projects.zones]]
+on = "text"
+pattern = 'continental'
+value = "The Continental"
+[[projects.zones]]
+on = "text"
+pattern = 'cosmopolit'
+value = "The Cosmopolitan"

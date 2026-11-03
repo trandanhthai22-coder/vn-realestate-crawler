@@ -11,6 +11,7 @@ from typing import Any
 from urllib.parse import urljoin
 
 from bdscrawler.rules import TowerRules, ZoneRules
+from bdscrawler.sites import adapter_for
 
 MODES = ("apartment", "lowrise", "detail")
 RECORDS = ("apartment_sale", "apartment_rent", "lowrise_sale", "lowrise_rent")
@@ -126,7 +127,8 @@ def _as_date(v: Any) -> date | None:
 
 
 def _tower_rules(raw: dict, opts: dict) -> TowerRules:
-    return TowerRules.from_config(raw, opts.get("exclude"), bool(opts.get("accent_insensitive", False)))
+    return TowerRules.from_config(raw, opts.get("exclude"), bool(opts.get("accent_insensitive", False)),
+                                  opts.get("on_multiple", "first"))
 
 
 def _project(raw: dict, site: str, defaults: dict) -> Project:
@@ -172,6 +174,7 @@ def load_job(path: str | Path) -> Job:
         raise ValueError(f"{path.name}: record phải là một trong {RECORDS}")
 
     site = raw.get("site", "https://batdongsan.com.vn").rstrip("/")
+    adapter_for(site)  # báo lỗi sớm nếu website chưa được hỗ trợ
     crawl, filters = raw.get("crawl", {}), raw.get("filters", {})
     defaults = {"label": raw.get("project_label", ""), "default_address": raw.get("default_address", ""),
                 "tower_options": raw.get("tower_options", {})}

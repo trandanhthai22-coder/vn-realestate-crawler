@@ -87,6 +87,45 @@ def test_past_date_range_does_not_stop_on_newer_pages():
     assert calls == [url]
 
 
+def test_guland_adapter_and_pipeline():
+    from bdscrawler.sites import adapter_for, guland
+
+    assert adapter_for("https://guland.vn") is guland
+    assert guland.page_url("https://guland.vn/du-an-x/mua-ban", 3) == "https://guland.vn/du-an-x/mua-ban?page=3"
+
+    cards = guland.parse_cards((FIX / "guland_listing.html").read_text(encoding="utf-8"))
+    assert len(cards) == 2  # card trỏ về trang dự án (không có /post/) bị loại
+    assert cards[0].price_raw == "5,8 tỷ" and cards[0].area_raw == "61,8 m²"
+
+    d = guland.parse_detail((FIX / "guland_detail.html").read_text(encoding="utf-8"), cards[0].link)
+    assert (d.price_raw, d.area_raw, d.listing_id) == ("5,8 tỷ", "61,8 m²", "2078589")
+    assert d.published == date.today() - timedelta(days=2)
+    assert "Đông Anh" in d.address and d.specs["du an"] == "Imperia Signature Cổ Loa"
+
+    job = load_job(ROOT / "configs" / "apartment" / "vhgg_global_gate_guland.toml")
+    job.projects = job.projects[3:]  # Imperia Signature
+    url = job.projects[0].urls[0]
+    fetcher = FileFetcher({url: FIX / "guland_listing.html", cards[0].link: FIX / "guland_detail.html"})
+    rows = ApartmentPipeline(job, fetcher, start=date.today() - timedelta(days=7), max_pages=1).run()
+
+    assert len(rows) == 1  # tin 2020 bị loại theo ngày
+    r = rows[0]
+    # Mô tả liệt kê cả 5 tòa nhưng tiêu đề ghi Y4 -> tiêu đề thắng
+    assert (r["Tòa"], r["Phân khu"], r["Dự án"]) == ("Y4", "The Continental", "Imperia Signature")
+    assert r["Giá all-in (VNĐ tỷ)"] == 5.8 and r["Diện tích thông thủy"] == 61.8
+    assert r["Đơn giá (triệu/m²)"] == 93.9 and r["Loại căn"] == "2PN"
+    assert r["Hướng"] == "Đông Nam" and r["Mã tin"] == "2078589"
+
+
+def test_unknown_site_rejected(tmp_path):
+    import pytest
+
+    cfg = tmp_path / "x.toml"
+    cfg.write_text('site = "https://example.com"\n[[projects]]\nname = "A"\nurls = ["/a"]\n', encoding="utf-8")
+    with pytest.raises(ValueError, match="Chưa hỗ trợ website"):
+        load_job(cfg)
+
+
 def test_detail_pipeline_apartment_sale(tmp_path):
     job = load_job(ROOT / "configs" / "detail" / "haiphong_apartment_sale.toml")
     job.include_expired = False

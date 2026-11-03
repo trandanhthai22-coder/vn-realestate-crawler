@@ -11,7 +11,7 @@ Mỗi file `.toml` là một **job**. Lưu ý cú pháp TOML: các key cấp cao
 | `name` | str | tên file | Tên hiển thị |
 | `mode` | `apartment` \| `lowrise` \| `detail` | `apartment` | Chế độ crawl |
 | `record` | `apartment_rent` \| `apartment_sale` \| `lowrise_rent` \| `lowrise_sale` | `apartment_sale` | Bộ cột output (chỉ mode `detail`) |
-| `site` | URL | `https://batdongsan.com.vn` | Gốc để ghép `urls` dạng path |
+| `site` | URL | `https://batdongsan.com.vn` | Website nguồn — chọn adapter (`batdongsan.com.vn` hoặc `guland.vn`) và là gốc để ghép `urls` dạng path |
 | `output` | str | tên file | Tiền tố file kết quả |
 | `benchmark` | str | `""` | Giá trị cột `Benchmark` (mode `apartment`) |
 | `project_label` | str | `""` | Giá trị cột `Dự án` cho mọi project (mặc định = `name` của project) |
@@ -84,6 +84,7 @@ Có điều kiện diện tích (hoặc `keep_types`) mà tin không có diện 
 [tower_options]
 exclude = ["PN1", "M2"]        # bỏ các giá trị bắt nhầm
 accent_insensitive = false     # true: so khớp trên text đã bỏ dấu (viết regex không dấu)
+on_multiple = "first"          # "blank": một đoạn văn nêu NHIỀU tòa khác nhau -> để trống thay vì lấy tòa đầu
 
 [[towers]]
 pattern = '\bt[oòóô]a\s+(s[1-4][.\-\s]?\d{2})\b'

@@ -59,7 +59,7 @@ class ApartmentPipeline(Pipeline):
         if job.fetch_detail:
             html = self.fetcher.fetch(card.link, referer=base_url, retries=2)
             if html:
-                detail = bds.parse_detail(html, card.link)
+                detail = self.site.parse_detail(html, card.link)
         published = detail.published or card.published
         if not self.in_range(published):
             return None

@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 
 from bdscrawler.config import Job, Project
 from bdscrawler.http import Fetcher
+from bdscrawler.sites import adapter_for
 from bdscrawler.sites import batdongsan as bds
 from bdscrawler.text import contains_any, fold, strip_accents
 
@@ -24,6 +25,7 @@ class Pipeline:
     def __init__(self, job: Job, fetcher: Fetcher, start: date | None = None, end: date | None = None,
                  max_pages: int | None = None):
         self.job = job
+        self.site = adapter_for(job.site)   # module adapter: batdongsan | guland
         self.fetcher = fetcher
         self.start = start or job.start_date or date(date.today().year, date.today().month, 1)
         self.end = end or job.end_date or date.today()
@@ -68,14 +70,14 @@ class Pipeline:
         """Trả từng trang (số trang, cards). Dừng khi hết card hoặc site redirect về trang cũ."""
         seen_links: set[str] = set()
         for page in range(1, self.max_pages + 1):
-            url = bds.page_url(base_url, page)
+            url = self.site.page_url(base_url, page)
             html = self.fetcher.fetch(url)
             if not html:
                 log.error("Không tải được %s", url)
                 if page == 1:
                     return
                 continue
-            cards = bds.parse_cards(html, self.job.site)
+            cards = self.site.parse_cards(html, self.job.site)
             if not cards:
                 log.info("Hết card ở trang %s — dừng.", page)
                 return

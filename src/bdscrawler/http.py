@@ -5,6 +5,8 @@ from __future__ import annotations
 import logging
 import os
 import random
+import shutil
+import tempfile
 import time
 from pathlib import Path
 from typing import Protocol
@@ -12,6 +14,46 @@ from typing import Protocol
 from bdscrawler import cloudflare
 
 log = logging.getLogger(__name__)
+
+
+def ca_bundle_path() -> str | None:
+    """Đường dẫn file chứng chỉ CA mà libcurl đọc được.
+
+    libcurl (curl_cffi) trên Windows KHÔNG mở được file CA nếu đường dẫn có ký tự non-ASCII
+    -> lỗi ``curl: (77) error setting certificate verify locations``. File ``cacert.pem`` của certifi
+    nằm trong ``.venv`` của repo, nên chỉ cần repo được clone vào thư mục có dấu (``Tài liệu``,
+    ``Khu vực phía Nam``...) là dính. Cách xử lý: copy sang thư mục có đường dẫn toàn ASCII.
+    Có thể chỉ định file riêng bằng biến môi trường ``BDS_CA_BUNDLE``.
+    """
+    custom = os.environ.get("BDS_CA_BUNDLE")
+    if custom:
+        return custom
+    try:
+        import certifi
+    except ImportError:
+        return None
+    src = Path(certifi.where())
+    if str(src).isascii():
+        return str(src)
+
+    candidates = [Path(tempfile.gettempdir()), Path(os.environ.get("PUBLIC", r"C:\Users\Public")),
+                  Path(os.environ.get("PROGRAMDATA", r"C:\ProgramData")), Path.home()]
+    for base in candidates:
+        dst = base / "bdscrawler" / "cacert.pem"
+        if not str(dst).isascii():
+            continue  # vd tên user Windows có dấu -> %TEMP% cũng có dấu
+        try:
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            if not dst.exists() or dst.stat().st_size != src.stat().st_size:
+                shutil.copyfile(src, dst)
+            log.info("Đường dẫn chứng chỉ có ký tự tiếng Việt -> dùng bản sao %s", dst)
+            return str(dst)
+        except OSError:
+            continue
+    log.error("Không tìm được thư mục ASCII để đặt cacert.pem — có thể gặp lỗi curl (77). "
+              "Hãy clone repo vào thư mục không dấu (vd C:\\tools\\vn-realestate-crawler) "
+              "hoặc đặt biến BDS_CA_BUNDLE trỏ tới một file cacert.pem có đường dẫn không dấu.")
+    return None
 
 
 class Fetcher(Protocol):
@@ -35,6 +77,9 @@ class CurlFetcher:
         self.min_html = min_html
         self.session = requests.Session(impersonate=os.environ.get("BDS_IMPERSONATE", "chrome"))
         self.session.headers.update(cloudflare.DEFAULT_HEADERS)
+        ca = ca_bundle_path()
+        if ca:
+            self.session.verify = ca
         self.cf = cloudflare.CloudflareSession(self.session, self.site_url)
         self._last_request = 0.0
 

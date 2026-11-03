@@ -62,17 +62,28 @@ class Rule:
             return ""
         return NORMALIZERS[self.normalize](_render(self.value, m))
 
+    def apply_all(self, text: str) -> list[str]:
+        """Mọi giá trị khác nhau khớp trong đoạn văn, giữ thứ tự xuất hiện."""
+        values = (NORMALIZERS[self.normalize](_render(self.value, m)) for m in self.pattern.finditer(text))
+        return list(dict.fromkeys(v for v in values if v))
+
 
 @dataclass
 class TowerRules:
     rules: list[Rule] = field(default_factory=list)
     exclude: set[str] = field(default_factory=set)
     accent_insensitive: bool = False
+    # "first": lấy mã đầu tiên | "blank": một đoạn văn nêu NHIỀU tòa khác nhau (tin rổ hàng,
+    # phần giới thiệu "dự án gồm tòa Y4, Y5, M1...") -> để trống thay vì đoán
+    on_multiple: str = "first"
 
     @classmethod
     def from_config(cls, rules: list[dict], exclude: list[str] | None = None,
-                    accent_insensitive: bool = False) -> "TowerRules":
-        return cls([Rule.from_dict(r) for r in rules or []], {e.upper() for e in exclude or []}, accent_insensitive)
+                    accent_insensitive: bool = False, on_multiple: str = "first") -> "TowerRules":
+        if on_multiple not in ("first", "blank"):
+            raise ValueError(f"on_multiple phải là 'first' hoặc 'blank', nhận {on_multiple!r}")
+        return cls([Rule.from_dict(r) for r in rules or []], {e.upper() for e in exclude or []},
+                   accent_insensitive, on_multiple)
 
     def _prep(self, text: str) -> str:
         t = (text or "").lower()
@@ -82,6 +93,15 @@ class TowerRules:
         prepared = [self._prep(t) for t in texts if t]
         for group in ([r for r in self.rules if not r.fallback], [r for r in self.rules if r.fallback]):
             for text in prepared:
+                if self.on_multiple == "blank":
+                    # Gom mã của MỌI quy tắc trong đoạn văn này rồi mới đếm
+                    values = list(dict.fromkeys(v for rule in group for v in rule.apply_all(text)
+                                                if v.upper() not in self.exclude))
+                    if len(values) > 1:
+                        return ""
+                    if values:
+                        return values[0]
+                    continue
                 for rule in group:
                     value = rule.apply(text)
                     if value and value.upper() not in self.exclude:

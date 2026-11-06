@@ -61,6 +61,18 @@ def test_all_configs_load():
     # ...nhưng tiêu đề nêu đúng 1 tòa thì tiêu đề thắng
     ("vhgg_global_gate.toml", "Bán căn M1 2PN", "Dự án gồm các tòa Y4, Y5, M1, M2, M3", 3,
      ("M1", "The Cosmopolitan")),
+    # Masteri Grand Coast — The Wave: L1, L2, Z1 ; The Sand: L3, L4, Z2, Z3
+    ("vhop2_masteri_grand_coast.toml", "Bán căn 2PN toà L1 view hồ tạo sóng", "", 0, ("L1", "The Wave")),
+    ("vhop2_masteri_grand_coast.toml", "Chính chủ bán tháp Z 3 giá tốt", "", 0, ("Z3", "The Sand")),
+    ("vhop2_masteri_grand_coast.toml", "Bán căn góc", "Mã căn L4-15-02", 0, ("L4", "The Sand")),
+    ("vhop2_masteri_grand_coast.toml", "Bán căn Z1 2PN", "Dự án gồm các tòa L1, L2, Z1, L3, L4, Z2, Z3", 0,
+     ("Z1", "The Wave")),
+    ("vhop2_masteri_grand_coast.toml", "Bán căn 2PN", "Dự án gồm các tòa L1, L2, Z1", 0, ("", "Không xác định")),
+    ("vhop2_masteri_grand_coast.toml", "Bán căn L1/L2 giá tốt", "", 0, ("", "Không xác định")),
+    ("vhop2_masteri_grand_coast.toml", "Bán căn 2PN phân khu The Sand", "", 0, ("", "The Sand")),
+    ("vhop2_masteri_grand_coast.toml", "Bán căn 2PN", "Dự án gồm The Wave và The Sand", 0, ("", "Không xác định")),
+    # Tòa không tồn tại / bẫy số liệu
+    ("vhop2_masteri_grand_coast.toml", "Bán căn 2PN tòa L5, diện tích 65m2", "", 0, ("", "Không xác định")),
 ])
 def test_tower_and_zone(config, title, desc, project, expected):
     assert tower_zone(config, title, desc, project) == expected

@@ -123,6 +123,7 @@ Lần chạy đầu, nếu batdongsan bật Cloudflare challenge, **một cửa 
 | `apartment/vhop_masteri_lakeside_trinity_springbay.toml` | Masteri Lakeside, Trinity Square, Lumiere SpringBay              | `vinhome_OP/Mas_OP.py`                                    |
 | `apartment/vhop_sapphire_1_2.toml`                       | The Sapphire 1 & 2 (VHOP)                                        | `vinhome_OP/Sapphire1_2_OP.py`                            |
 | `apartment/vhop_zenpark_zurich_pavilion_paris.toml`      | Zenpark, Zurich, Pavilion, Paris                                 | `vinhome_OP/zen_zu_pavi_paris.py`                         |
+| `apartment/vhop2_masteri_grand_coast.toml`               | Masteri Grand Coast — VHOP2 (The Wave / The Sand)                | Mới, không có script cũ                                   |
 | `apartment/vhgg_global_gate.toml`                        | Vinhomes Global Gate: Masteri Grand Avenue, Lumiere Essence Peak, Lumiere Prime Hills, Imperia Signature (The Continental / The Cosmopolitan) — nguồn batdongsan | `Data_Crawler.py` (phần batdongsan) |
 | `apartment/vhgg_global_gate_guland.toml`                 | Như trên — nguồn **guland.vn**                                   | `Data_Crawler.py` (phần guland)                           |
 | `lowrise/hanoi_vinhomes_lowrise.toml`                    | Thấp tầng 6 KĐT Vinhomes Hà Nội                             | `crawl_thấp_tầng 1.py`                                  |

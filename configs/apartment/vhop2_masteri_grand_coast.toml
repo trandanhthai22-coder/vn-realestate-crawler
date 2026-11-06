@@ -1,0 +1,44 @@
+# Masteri Grand Coast — Vinhomes Ocean Park 2 (Văn Giang, Hưng Yên), nguồn batdongsan.com.vn
+#   The Wave: L1, L2, Z1 ; The Sand: L3, L4, Z2, Z3
+name = "VHOP2 · Masteri Grand Coast"
+mode = "apartment"
+benchmark = "Vinhomes Ocean Park 2"
+output = "vhop2_masteri_grand_coast"
+zone_order = ["The Wave", "The Sand"]
+
+[crawl]
+days_back = 30
+max_pages = 30
+
+[tower_options]
+accent_insensitive = true
+on_multiple = "blank"     # tin nêu nhiều tòa ("dự án gồm L1, L2, Z1...") -> để trống, không đoán
+
+[[projects]]
+name = "Masteri Grand Coast"
+zone = "Không xác định"
+urls = ["/ban-can-ho-chung-cu-masteri-grand-coast"]
+
+[[towers]]
+pattern = '\b(?:toa|thap|block|building|tower)\s*[:\-]?\s*(l\s?[1-4]|z\s?[1-3])(?![a-z0-9])'
+normalize = "compact"
+# Mã trần "căn L1 góc", "L3-15-02"
+[[towers]]
+pattern = '(?<![a-z0-9])(l[1-4]|z[1-3])(?![a-z0-9])'
+normalize = "compact"
+
+[[zones]]
+pattern = '^(L[12]|Z1)$'
+value = "The Wave"
+[[zones]]
+pattern = '^(L[34]|Z[23])$'
+value = "The Sand"
+# Không rõ tòa: chỉ nhận khi tin nêu đúng 1 phân khu
+[[zones]]
+on = "text"
+pattern = '^(?!.*\bthe sand\b).*\bthe wave\b'
+value = "The Wave"
+[[zones]]
+on = "text"
+pattern = '^(?!.*\bthe wave\b).*\bthe sand\b'
+value = "The Sand"
